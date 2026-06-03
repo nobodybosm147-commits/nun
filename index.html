@@ -333,10 +333,24 @@
 <script>
 const APP_PIN = "9999";
 const GOOGLE_SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbwM4iSAXBvVT5eHitgfCThuUCE0_aMofM21PCwY6zwEqns3HQoPQITwWOEBIMpoLCA2/exec';
+const AUTH_TTL_MS = 8 * 60 * 60 * 1000; // 8 ชั่วโมง
+const CACHE_TTL_MS = 30 * 1000;          // cache API 30 วิ
 
-let pinInput    = '';
-let historyData = [];
+let pinInput       = '';
+let historyData    = [];
 let selectedRecord = null;
+let lastFetchTime  = 0;
+
+// =====================================================
+// 🔑 Session Auth (ไม่ต้องกรอก PIN ซ้ำภายใน 8 ชม.)
+// =====================================================
+function setAuth() {
+    localStorage.setItem('qc_auth', Date.now().toString());
+}
+function isAuthValid() {
+    const t = parseInt(localStorage.getItem('qc_auth') || '0');
+    return (Date.now() - t) < AUTH_TTL_MS;
+}
 
 // =====================================================
 // 📊 โครงสร้างหัวข้อประเมิน (16 รายการ, คะแนนเต็ม 80)
@@ -402,6 +416,7 @@ function updatePinDots() {
 }
 async function submitPin() {
     if (pinInput === APP_PIN) {
+        setAuth();
         await fetchHistoryData();
         navigateTo('home');
     } else {
@@ -416,10 +431,12 @@ async function submitPin() {
 async function navigateTo(viewId) {
     document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
     document.getElementById(`view-${viewId}`).classList.add('active');
-    if (viewId === 'home')    { await fetchHistoryData(); renderHome(); }
+    // fetch เฉพาะหน้าที่ต้องใช้ข้อมูล และ cache 30 วิ
+    if (['home', 'history', 'stats'].includes(viewId)) await fetchHistoryData();
+    if (viewId === 'home')    renderHome();
     if (viewId === 'form')    renderFormUI();
-    if (viewId === 'history') { await fetchHistoryData(); renderHistory(); }
-    if (viewId === 'stats')   { await fetchHistoryData(); renderStats(); }
+    if (viewId === 'history') renderHistory();
+    if (viewId === 'stats')   renderStats();
     if (viewId === 'detail')  renderDetail();
     lucide.createIcons();
 }
@@ -557,7 +574,7 @@ async function submitForm() {
         formScores  = Object.fromEntries(ALL_ITEMS.map(i => [i.id, 5]));
         formRemarks = Object.fromEntries(ALL_ITEMS.map(i => [i.id, '']));
         document.getElementById('input-remark').value = '';
-        await fetchHistoryData();
+        await fetchHistoryData(true); // force refresh หลังบันทึก
         navigateTo('home');
     } catch (err) {
         showToast('เกิดข้อผิดพลาดในการบันทึก', 'error');
@@ -570,16 +587,19 @@ async function submitForm() {
 // =====================================================
 // 📡 Fetch Data
 // =====================================================
-async function fetchHistoryData() {
+async function fetchHistoryData(force = false) {
+    const now = Date.now();
+    if (!force && historyData.length > 0 && (now - lastFetchTime) < CACHE_TTL_MS) return; // ใช้ cache
     try {
         if (GOOGLE_SHEET_API_URL) {
-            const res = await fetch(GOOGLE_SHEET_API_URL);
+            const res  = await fetch(GOOGLE_SHEET_API_URL);
             const data = await res.json();
             historyData = data.reverse();
         } else {
             historyData = JSON.parse(localStorage.getItem('qc_nun_v3') || '[]');
         }
-    } catch (err) { historyData = []; }
+        lastFetchTime = now;
+    } catch (err) { if (!historyData.length) historyData = []; }
 }
 
 // =====================================================
@@ -748,28 +768,46 @@ function renderDetail() {
         </div>`;
     }
 
-    // Score Breakdown by Category
-    Object.values(SCORE_CONFIG).forEach(cat => {
-        const catTotal = cat.items.reduce((s, it) => s + (Number(item[it.id]) || 0), 0);
-        const catMax   = cat.items.length * 5;
-        const catPct   = Math.round((catTotal / catMax) * 100);
-        const badgeColor = catPct >= 80 ? 'bg-green-100 text-green-700' : catPct >= 60 ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700';
-        const catIconMap = { food: 'utensils', veg: 'leaf', service: 'smile', standards: 'star' };
-        const catKey = Object.keys(SCORE_CONFIG).find(k => SCORE_CONFIG[k] === cat);
+    // Score Breakdown — แสดงเฉพาะรายการที่ได้ 5 คะแนน (ผ่านมาตรฐานสูงสุด)
+    const catIconMap = { food: 'utensils', veg: 'leaf', service: 'smile', standards: 'star' };
+    const perfectItems = ALL_ITEMS.filter(it => Number(item[it.id]) === 5);
+    const notPerfectItems = ALL_ITEMS.filter(it => Number(item[it.id]) !== 5 && item[it.id] != null);
 
-        let barsHtml = cat.items.map(it => renderScoreBar(it.label, it.icon, item[it.id])).join('');
-
+    if (perfectItems.length > 0) {
+        const barsHtml = perfectItems.map(it => renderScoreBar(it.label, it.icon, 5)).join('');
         html += `
-        <div class="bg-white rounded-2xl p-4 mb-3 shadow-sm border border-gray-100">
+        <div class="bg-white rounded-2xl p-4 mb-3 shadow-sm border border-green-100">
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-gray-50">
                 <h3 class="font-bold text-sm text-gray-700 flex items-center gap-2">
-                    <i data-lucide="${catIconMap[catKey]}" class="w-4 h-4 text-red-500"></i>${cat.title}
+                    <i data-lucide="check-circle" class="w-4 h-4 text-green-500"></i>
+                    ผ่านมาตรฐานสูงสุด (5/5)
                 </h3>
-                <span class="text-xs font-bold px-2 py-0.5 rounded-full ${badgeColor}">${catPct}%</span>
+                <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-green-100 text-green-700">
+                    ${perfectItems.length}/${ALL_ITEMS.length} รายการ
+                </span>
             </div>
             ${barsHtml}
         </div>`;
-    });
+    }
+
+    if (notPerfectItems.length > 0) {
+        const notPct = Math.round((notPerfectItems.reduce((s,it)=>s+Number(item[it.id]),0) / (notPerfectItems.length*5))*100);
+        const badgeColor = notPct >= 60 ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700';
+        const barsHtml = notPerfectItems.map(it => renderScoreBar(it.label, it.icon, Number(item[it.id]))).join('');
+        html += `
+        <div class="bg-white rounded-2xl p-4 mb-3 shadow-sm border border-orange-100">
+            <div class="flex justify-between items-center mb-3 pb-2 border-b border-gray-50">
+                <h3 class="font-bold text-sm text-gray-700 flex items-center gap-2">
+                    <i data-lucide="alert-triangle" class="w-4 h-4 text-orange-500"></i>
+                    รายการที่ต้องพัฒนา (ต่ำกว่า 5)
+                </h3>
+                <span class="text-xs font-bold px-2 py-0.5 rounded-full ${badgeColor}">
+                    ${notPerfectItems.length} รายการ
+                </span>
+            </div>
+            ${barsHtml}
+        </div>`;
+    }
 
     // General Remark
     if (item.remark) {
@@ -905,10 +943,14 @@ function renderStats() {
 }
 
 // =====================================================
-// 🚀 Init
+// 🚀 Init — ข้ามหน้า PIN ถ้ายัง session ไม่หมดอายุ
 // =====================================================
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     lucide.createIcons();
+    if (isAuthValid()) {
+        await fetchHistoryData();
+        navigateTo('home');
+    }
 });
 </script>
 </body>
