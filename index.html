@@ -80,7 +80,7 @@
                         </div>
                         <div class="bg-white/10 p-3 rounded-2xl flex-1 backdrop-blur-sm border border-white/10">
                             <p class="text-xs text-gray-300 mb-1">หัวข้อตรวจ</p>
-                            <p class="text-2xl font-bold text-white">16 <span class="text-sm font-normal">รายการ</span></p>
+                            <p class="text-2xl font-bold text-white">20 <span class="text-sm font-normal">รายการ</span></p>
                         </div>
                     </div>
                 </div>
@@ -111,7 +111,7 @@
                 <div class="bg-white p-2.5 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center gap-1 text-center">
                     <i data-lucide="utensils" class="w-4 h-4 text-red-500"></i>
                     <p class="text-[9px] text-gray-500 leading-tight">อาหารหลัก</p>
-                    <p class="text-[9px] font-bold text-gray-700">5 รายการ</p>
+                    <p class="text-[9px] font-bold text-gray-700">7 รายการ</p>
                 </div>
                 <div class="bg-white p-2.5 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center gap-1 text-center">
                     <i data-lucide="leaf" class="w-4 h-4 text-green-500"></i>
@@ -120,8 +120,8 @@
                 </div>
                 <div class="bg-white p-2.5 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center gap-1 text-center">
                     <i data-lucide="smile" class="w-4 h-4 text-blue-500"></i>
-                    <p class="text-[9px] text-gray-500 leading-tight">บริการ</p>
-                    <p class="text-[9px] font-bold text-gray-700">3 รายการ</p>
+                    <p class="text-[9px] text-gray-500 leading-tight">บริการ+แนะนำ</p>
+                    <p class="text-[9px] font-bold text-gray-700">5 รายการ</p>
                 </div>
                 <div class="bg-white p-2.5 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center gap-1 text-center">
                     <i data-lucide="star" class="w-4 h-4 text-purple-500"></i>
@@ -207,7 +207,7 @@
             <!-- หมวด 1: คุณภาพอาหารหลัก -->
             <h3 class="text-sm font-bold text-gray-500 mb-3 px-2 uppercase tracking-wider flex items-center justify-between">
                 <span class="flex items-center gap-2"><i data-lucide="utensils" class="w-4 h-4 text-red-600"></i> หมวด 1: คุณภาพอาหารหลัก</span>
-                <span class="text-[10px] bg-red-100 text-red-600 px-2 py-0.5 rounded-full font-bold">5 รายการ</span>
+                <span class="text-[10px] bg-red-100 text-red-600 px-2 py-0.5 rounded-full font-bold">7 รายการ</span>
             </h3>
             <div id="rating-container-food"></div>
 
@@ -218,10 +218,10 @@
             </h3>
             <div id="rating-container-veg"></div>
 
-            <!-- หมวด 3: มาตรฐานการบริการ -->
+            <!-- หมวด 3: มาตรฐานการบริการและการแนะนำ -->
             <h3 class="text-sm font-bold text-gray-500 mb-3 mt-5 px-2 uppercase tracking-wider flex items-center justify-between">
-                <span class="flex items-center gap-2"><i data-lucide="smile" class="w-4 h-4 text-blue-600"></i> หมวด 3: มาตรฐานการบริการ</span>
-                <span class="text-[10px] bg-blue-100 text-blue-600 px-2 py-0.5 rounded-full font-bold">3 รายการ</span>
+                <span class="flex items-center gap-2"><i data-lucide="smile" class="w-4 h-4 text-blue-600"></i> หมวด 3: การบริการและการแนะนำ</span>
+                <span class="text-[10px] bg-blue-100 text-blue-600 px-2 py-0.5 rounded-full font-bold">5 รายการ</span>
             </h3>
             <div id="rating-container-service"></div>
 
@@ -353,21 +353,25 @@ function isAuthValid() {
 }
 
 // =====================================================
-// 📊 โครงสร้างหัวข้อประเมิน (16 รายการ, คะแนนเต็ม 80)
+// 📊 โครงสร้างหัวข้อประเมิน (20 รายการ, คะแนนเต็ม 100)
 // =====================================================
 const SCORE_CONFIG = {
     food: {
         title: 'คุณภาพอาหารหลัก', containerId: 'rating-container-food',
+        icon: 'utensils', colorClass: 'red',
         items: [
-            { id: 'riceScore',         name: 'ข้าวมัน',        label: 'ข้าวมัน (หอม นุ่ม ร่วน ไม่แฉะ)',              icon: 'utensils'  },
-            { id: 'chickenScore',      name: 'ไก่ต้ม',          label: 'เนื้อไก่ต้ม (นุ่ม สุกพอดี หนังตึง ไม่คาว)',    icon: 'utensils'  },
-            { id: 'friedChickenScore', name: 'ไก่ทอด',          label: 'ไก่ทอด (กรอบนอก นุ่มใน สีสม่ำเสมอ)',          icon: 'flame'     },
-            { id: 'soupScore',         name: 'น้ำซุป',          label: 'น้ำซุป (ร้อน รสชาติกลมกล่อม)',                 icon: 'droplets'  },
-            { id: 'sauceScore',        name: 'น้ำจิ้ม',         label: 'น้ำจิ้ม (รสชาติตามมาตรฐาน ไม่บูด)',            icon: 'droplets'  },
+            { id: 'riceScore',          name: 'ข้าวมัน',   label: 'ข้าวมัน (หอม นุ่ม ร่วน ไม่แฉะ)',                icon: 'utensils'  },
+            { id: 'chickenScore',       name: 'ไก่ต้ม',     label: 'เนื้อไก่ต้ม (นุ่ม สุกพอดี หนังตึง ไม่คาว)',      icon: 'utensils'  },
+            { id: 'friedChickenScore',  name: 'ไก่ทอด',     label: 'ไก่ทอด (กรอบนอก นุ่มใน สีสม่ำเสมอ)',            icon: 'flame'     },
+            { id: 'spicyChickenScore',  name: 'ไก่แซ่บ',    label: 'ไก่แซ่บ (รสจัด เครื่องแน่น หอมกระเทียม)',        icon: 'flame'     },
+            { id: 'softLiverScore',     name: 'ตับนุ่ม',    label: 'ตับนุ่ม (สุกพอดี นุ่ม ไม่แข็ง ไม่มีกลิ่น)',     icon: 'utensils'  },
+            { id: 'soupScore',          name: 'น้ำซุป',     label: 'น้ำซุป (ร้อน รสชาติกลมกล่อม)',                   icon: 'droplets'  },
+            { id: 'sauceScore',         name: 'น้ำจิ้ม',    label: 'น้ำจิ้ม (รสชาติตามมาตรฐาน ไม่บูด)',              icon: 'droplets'  },
         ]
     },
     veg: {
         title: 'เครื่องเคียงและผักสด', containerId: 'rating-container-veg',
+        icon: 'leaf', colorClass: 'green',
         items: [
             { id: 'cucumberScore',  name: 'แตงกวา', label: 'แตงกวา (สด กรอบ หั่นสม่ำเสมอ)',          icon: 'leaf'     },
             { id: 'corianderScore', name: 'ผักชี',  label: 'ผักชี (สด สะอาด ใบไม่เหี่ยวเฉา)',          icon: 'leaf'     },
@@ -376,15 +380,19 @@ const SCORE_CONFIG = {
         ]
     },
     service: {
-        title: 'มาตรฐานการบริการ', containerId: 'rating-container-service',
+        title: 'มาตรฐานการบริการและการแนะนำ', containerId: 'rating-container-service',
+        icon: 'smile', colorClass: 'blue',
         items: [
-            { id: 'serviceScore',      name: 'มารยาทบริการ',     label: 'มารยาทการบริการ (ยิ้มแย้ม สุภาพ)',             icon: 'smile' },
-            { id: 'servingSpeedScore', name: 'ความเร็วเสิร์ฟ',   label: 'ความเร็วในการเสิร์ฟ (ภายใน 5 นาที)',            icon: 'clock' },
-            { id: 'uniformScore',      name: 'ยูนิฟอร์ม',        label: 'ยูนิฟอร์มพนักงาน (สะอาด ครบ ถูกต้อง)',         icon: 'award' },
+            { id: 'serviceScore',       name: 'มารยาทบริการ',      label: 'มารยาทการบริการ (ยิ้มแย้ม สุภาพ)',              icon: 'smile'          },
+            { id: 'servingSpeedScore',  name: 'ความเร็วเสิร์ฟ',    label: 'ความเร็วในการเสิร์ฟ (ภายใน 5 นาที)',             icon: 'clock'          },
+            { id: 'uniformScore',       name: 'ยูนิฟอร์ม',         label: 'ยูนิฟอร์มพนักงาน (สะอาด ครบ ถูกต้อง)',          icon: 'award'          },
+            { id: 'menuRecommendScore', name: 'แนะนำเมนู',         label: 'แนะนำเมนูเพิ่มเติมให้ลูกค้า (ครบ ตรงใจ)',       icon: 'message-circle' },
+            { id: 'promotionScore',     name: 'แนะนำโปรโมชั่น',   label: 'แนะนำโปรโมชั่นประจำเดือน (แม่นยำ กระตือรือร้น)', icon: 'tag'            },
         ]
     },
     standards: {
         title: 'ความสะอาดและมาตรฐานร้าน', containerId: 'rating-container-standards',
+        icon: 'star', colorClass: 'purple',
         items: [
             { id: 'cleanScore',        name: 'ความสะอาด',     label: 'ความสะอาด (ครัว โต๊ะ อุปกรณ์)',                   icon: 'star'        },
             { id: 'presentationScore', name: 'การจัดจาน',     label: 'การจัดจาน / Presentation (สวยงาม น่ากิน)',         icon: 'package'     },
@@ -395,7 +403,7 @@ const SCORE_CONFIG = {
 };
 
 const ALL_ITEMS = Object.values(SCORE_CONFIG).flatMap(cat => cat.items);
-const MAX_SCORE = ALL_ITEMS.length * 5; // 16 × 5 = 80
+const MAX_SCORE = ALL_ITEMS.length * 5; // 20 × 5 = 100
 
 // Initial score/remark state
 let formScores  = Object.fromEntries(ALL_ITEMS.map(i => [i.id, 5]));
@@ -851,15 +859,15 @@ function renderStats() {
     const top = branchStats[0];
     const low = branchStats.length > 1 ? branchStats[branchStats.length - 1] : null;
 
-    // Category averages
-    const catIconMap = { food: 'utensils', veg: 'leaf', service: 'smile', standards: 'star' };
+    // Category averages — skip items ที่ไม่มีข้อมูลในชุดเก่า (ไม่นับเป็น 0)
     const catStats = Object.entries(SCORE_CONFIG).map(([key, cat]) => {
-        const avgs = cat.items.map(item => {
-            const vals = historyData.map(d => Number(d[item.id])).filter(v => !isNaN(v) && v > 0);
-            return vals.length ? vals.reduce((a,b)=>a+b,0)/vals.length : 0;
-        });
-        const avg = avgs.reduce((a,b)=>a+b,0)/avgs.length;
-        return { key, title: cat.title, icon: catIconMap[key], avg: Math.round(avg*10)/10, pct: Math.round((avg/5)*100) };
+        const itemAvgs = cat.items.map(item => {
+            const vals = historyData.map(d => Number(d[item.id])).filter(v => !isNaN(v) && v >= 1 && v <= 5);
+            return vals.length ? vals.reduce((a,b)=>a+b,0)/vals.length : null; // null = ไม่มีข้อมูล
+        }).filter(v => v !== null); // ตัด null ออกก่อนเฉลี่ย
+        const avg = itemAvgs.length ? itemAvgs.reduce((a,b)=>a+b,0)/itemAvgs.length : 0;
+        const hasData = itemAvgs.length > 0;
+        return { key, title: cat.title, icon: cat.icon, avg: Math.round(avg*10)/10, pct: Math.round((avg/5)*100), hasData, dataCount: itemAvgs.length, totalItems: cat.items.length };
     });
 
     let html = '<div class="space-y-5 pb-10">';
@@ -894,14 +902,16 @@ function renderStats() {
         </h3>
         <div class="space-y-4">`;
     catStats.forEach(cat => {
-        const barColor = cat.pct >= 80 ? 'bg-green-500' : cat.pct >= 60 ? 'bg-yellow-500' : 'bg-red-500';
+        const barColor  = !cat.hasData ? 'bg-gray-300' : cat.pct >= 80 ? 'bg-green-500' : cat.pct >= 60 ? 'bg-yellow-500' : 'bg-red-500';
+        const scoreText = cat.hasData ? `${cat.avg}/5 (${cat.pct}%)` : 'ยังไม่มีข้อมูล';
+        const partial   = cat.hasData && cat.dataCount < cat.totalItems ? `<span class="text-[9px] text-gray-400 ml-1">(${cat.dataCount}/${cat.totalItems} รายการ)</span>` : '';
         html += `
         <div>
             <div class="flex justify-between items-center mb-1">
                 <p class="text-xs font-bold text-gray-700 flex items-center gap-1.5">
-                    <i data-lucide="${cat.icon}" class="w-3.5 h-3.5 text-red-500"></i>${cat.title}
+                    <i data-lucide="${cat.icon}" class="w-3.5 h-3.5 text-red-500"></i>${cat.title}${partial}
                 </p>
-                <span class="text-xs font-bold text-gray-500">${cat.avg}/5 (${cat.pct}%)</span>
+                <span class="text-xs font-bold ${cat.hasData ? 'text-gray-600' : 'text-gray-300'}">${scoreText}</span>
             </div>
             <div class="w-full h-2.5 bg-gray-100 rounded-full overflow-hidden">
                 <div class="h-full rounded-full ${barColor}" style="width:${cat.pct}%"></div>
