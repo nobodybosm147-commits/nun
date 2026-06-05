@@ -116,12 +116,12 @@
                 <div class="bg-white p-2.5 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center gap-1 text-center">
                     <i data-lucide="leaf" class="w-4 h-4 text-green-500"></i>
                     <p class="text-[9px] text-gray-500 leading-tight">เครื่องเคียง</p>
-                    <p class="text-[9px] font-bold text-gray-700">4 รายการ</p>
+                    <p class="text-[9px] font-bold text-gray-700">3 รายการ</p>
                 </div>
                 <div class="bg-white p-2.5 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center gap-1 text-center">
                     <i data-lucide="smile" class="w-4 h-4 text-blue-500"></i>
                     <p class="text-[9px] text-gray-500 leading-tight">บริการ+แนะนำ</p>
-                    <p class="text-[9px] font-bold text-gray-700">5 รายการ</p>
+                    <p class="text-[9px] font-bold text-gray-700">6 รายการ</p>
                 </div>
                 <div class="bg-white p-2.5 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center gap-1 text-center">
                     <i data-lucide="star" class="w-4 h-4 text-purple-500"></i>
@@ -214,14 +214,14 @@
             <!-- หมวด 2: เครื่องเคียงและผักสด -->
             <h3 class="text-sm font-bold text-gray-500 mb-3 mt-5 px-2 uppercase tracking-wider flex items-center justify-between">
                 <span class="flex items-center gap-2"><i data-lucide="leaf" class="w-4 h-4 text-green-600"></i> หมวด 2: เครื่องเคียงและผักสด</span>
-                <span class="text-[10px] bg-green-100 text-green-600 px-2 py-0.5 rounded-full font-bold">4 รายการ</span>
+                <span class="text-[10px] bg-green-100 text-green-600 px-2 py-0.5 rounded-full font-bold">3 รายการ</span>
             </h3>
             <div id="rating-container-veg"></div>
 
             <!-- หมวด 3: มาตรฐานการบริการและการแนะนำ -->
             <h3 class="text-sm font-bold text-gray-500 mb-3 mt-5 px-2 uppercase tracking-wider flex items-center justify-between">
                 <span class="flex items-center gap-2"><i data-lucide="smile" class="w-4 h-4 text-blue-600"></i> หมวด 3: การบริการและการแนะนำ</span>
-                <span class="text-[10px] bg-blue-100 text-blue-600 px-2 py-0.5 rounded-full font-bold">5 รายการ</span>
+                <span class="text-[10px] bg-blue-100 text-blue-600 px-2 py-0.5 rounded-full font-bold">6 รายการ</span>
             </h3>
             <div id="rating-container-service"></div>
 
@@ -360,44 +360,44 @@ const SCORE_CONFIG = {
         title: 'คุณภาพอาหารหลัก', containerId: 'rating-container-food',
         icon: 'utensils', colorClass: 'red',
         items: [
-            { id: 'riceScore',          name: 'ข้าวมัน',   label: 'ข้าวมัน (หอม นุ่ม ร่วน ไม่แฉะ)',                icon: 'utensils'  },
-            { id: 'chickenScore',       name: 'ไก่ต้ม',     label: 'เนื้อไก่ต้ม (นุ่ม สุกพอดี หนังตึง ไม่คาว)',      icon: 'utensils'  },
-            { id: 'friedChickenScore',  name: 'ไก่ทอด',     label: 'ไก่ทอด (กรอบนอก นุ่มใน สีสม่ำเสมอ)',            icon: 'flame'     },
-            { id: 'spicyChickenScore',  name: 'ไก่แซ่บ',    label: 'ไก่แซ่บ (รสจัด เครื่องแน่น หอมกระเทียม)',        icon: 'flame'     },
-            { id: 'softLiverScore',     name: 'ตับนุ่ม',    label: 'ตับนุ่ม (สุกพอดี นุ่ม ไม่แข็ง ไม่มีกลิ่น)',     icon: 'utensils'  },
-            { id: 'soupScore',          name: 'น้ำซุป',     label: 'น้ำซุป (ร้อน รสชาติกลมกล่อม)',                   icon: 'droplets'  },
-            { id: 'sauceScore',         name: 'น้ำจิ้ม',    label: 'น้ำจิ้ม (รสชาติตามมาตรฐาน ไม่บูด)',              icon: 'droplets'  },
+            { id: 'riceScore',         name: 'ข้าวมัน',  label: 'ข้าวมัน (หอม นุ่ม ร่วน ไม่แฉะ)',              icon: 'utensils', hint: 'เช่น ข้าวแฉะ แข็งจับตัว ไม่หอม มีกลิ่นบูด'              },
+            { id: 'chickenScore',      name: 'ไก่ต้ม',   label: 'เนื้อไก่ต้ม (นุ่ม สุกพอดี หนังตึง ไม่คาว)',   icon: 'utensils', hint: 'เช่น เนื้อแข็ง ดิบ กลิ่นคาว หนังเละ ไม่สุกสม่ำเสมอ'   },
+            { id: 'friedChickenScore', name: 'ไก่ทอด',   label: 'ไก่ทอด (กรอบนอก นุ่มใน สีสม่ำเสมอ)',          icon: 'flame',    hint: 'เช่น ไม่กรอบ ไหม้ สีดำ ชุบแป้งหนาเกิน น้ำมันเก่า'        },
+            { id: 'spicyChickenScore', name: 'ไก่แซ่บ',  label: 'ไก่แซ่บ (รสจัด เครื่องแน่น หอมกระเทียม)',     icon: 'flame',    hint: 'เช่น รสจืด ไม่เผ็ด ไม่หอม เครื่องน้อย กระเทียมไม่กรอบ'  },
+            { id: 'softLiverScore',    name: 'ตับนุ่ม',  label: 'ตับนุ่ม (สุกพอดี นุ่ม ไม่แข็ง ไม่มีกลิ่น)',  icon: 'utensils', hint: 'เช่น ตับดิบ แข็ง กลิ่นคาวแรง สีผิดปกติ'                 },
+            { id: 'soupScore',         name: 'น้ำซุป',   label: 'น้ำซุป (ร้อน รสชาติกลมกล่อม)',                 icon: 'droplets', hint: 'เช่น น้ำซุปเย็น รสจืด ขุ่น มีตะกอน กลิ่นผิดปกติ'        },
+            { id: 'sauceScore',        name: 'น้ำจิ้ม',  label: 'น้ำจิ้ม (รสชาติตามมาตรฐาน ไม่บูด)',           icon: 'droplets', hint: 'เช่น น้ำจิ้มบูด รสเปี้ยวผิดปกติ สีเข้มผิดสูตร ไม่สด'    },
         ]
     },
     veg: {
         title: 'เครื่องเคียงและผักสด', containerId: 'rating-container-veg',
         icon: 'leaf', colorClass: 'green',
         items: [
-            { id: 'cucumberScore',  name: 'แตงกวา',       label: 'แตงกวา (สด กรอบ หั่นสม่ำเสมอ)',                         icon: 'leaf'       },
-            { id: 'corianderScore', name: 'ผักชี',         label: 'ผักชี (สด สะอาด ใบไม่เหี่ยวเฉา)',                         icon: 'leaf'       },
-            { id: 'bloodScore',     name: 'เลือด',         label: 'เลือด (สุก ไม่แฉะ ตัดสม่ำเสมอ)',                          icon: 'activity'   },
-            { id: 'waterZoneScore', name: 'โซนน้ำดื่ม',   label: 'ความสะอาดโซนน้ำดื่ม (แก้ว เหยือก จุดบริการตนเอง)',       icon: 'cup-soda'   },
+            { id: 'cucumberScore',  name: 'แตงกวา', label: 'แตงกวา (สด กรอบ หั่นสม่ำเสมอ)',         icon: 'leaf',     hint: 'เช่น แตงกวาเหี่ยว เป็นยาง หั่นหนาไม่เท่ากัน มีกลิ่น'    },
+            { id: 'corianderScore', name: 'ผักชี',  label: 'ผักชี (สด สะอาด ใบไม่เหี่ยวเฉา)',        icon: 'leaf',     hint: 'เช่น ผักชีเหี่ยว เหลือง ดำ มีดินสกปรก ไม่สด'              },
+            { id: 'bloodScore',     name: 'เลือด',  label: 'เลือด (สุก ไม่แฉะ ตัดสม่ำเสมอ)',         icon: 'activity', hint: 'เช่น เลือดดิบ แตก เละ ชิ้นไม่เท่ากัน กลิ่นคาวแรง'        },
         ]
     },
     service: {
         title: 'มาตรฐานการบริการและการแนะนำ', containerId: 'rating-container-service',
         icon: 'smile', colorClass: 'blue',
         items: [
-            { id: 'serviceScore',       name: 'มารยาทบริการ',      label: 'มารยาทการบริการ (ยิ้มแย้ม สุภาพ)',              icon: 'smile'          },
-            { id: 'servingSpeedScore',  name: 'ความเร็วเสิร์ฟ',    label: 'ความเร็วในการเสิร์ฟ (ภายใน 5 นาที)',             icon: 'clock'          },
-            { id: 'uniformScore',       name: 'ยูนิฟอร์ม',         label: 'ยูนิฟอร์มพนักงาน (สะอาด ครบ ถูกต้อง)',          icon: 'award'          },
-            { id: 'menuRecommendScore', name: 'แนะนำเมนู',         label: 'แนะนำเมนูเพิ่มเติมให้ลูกค้า (ครบ ตรงใจ)',       icon: 'message-circle' },
-            { id: 'promotionScore',     name: 'แนะนำโปรโมชั่น',   label: 'แนะนำโปรโมชั่นประจำเดือน (แม่นยำ กระตือรือร้น)', icon: 'tag'            },
+            { id: 'serviceScore',       name: 'มารยาทบริการ',    label: 'มารยาทการบริการ (ยิ้มแย้ม สุภาพ)',               icon: 'smile',         hint: 'เช่น หน้าบึ้ง ไม่ยิ้ม พูดห้วน ไม่ต้อนรับลูกค้า'            },
+            { id: 'servingSpeedScore',  name: 'ความเร็วเสิร์ฟ',  label: 'ความเร็วในการเสิร์ฟ (ภายใน 5 นาที)',             icon: 'clock',         hint: 'เช่น รอนานเกิน 5 นาที ไม่แจ้งเวลารอ ลืมออเดอร์'           },
+            { id: 'uniformScore',       name: 'ยูนิฟอร์ม',       label: 'ยูนิฟอร์มพนักงาน (สะอาด ครบ ถูกต้อง)',           icon: 'award',         hint: 'เช่น เสื้อสกปรก ไม่ครบชุด ไม่สวมผ้ากันเปื้อน หมวก'       },
+            { id: 'menuRecommendScore', name: 'แนะนำเมนู',       label: 'แนะนำเมนูเพิ่มเติมให้ลูกค้า (ครบ ตรงใจ)',        icon: 'message-circle',hint: 'เช่น ไม่แนะนำเลย ไม่รู้เมนู แนะนำผิด ไม่ถามความต้องการ'  },
+            { id: 'promotionScore',     name: 'แนะนำโปรโมชั่น', label: 'แนะนำโปรโมชั่นประจำเดือน (แม่นยำ กระตือรือร้น)', icon: 'tag',           hint: 'เช่น ไม่รู้โปรโมชั่น บอกข้อมูลผิด ไม่กระตือรือร้นแนะนำ'  },
+            { id: 'waterZoneScore',     name: 'โซนน้ำดื่ม',      label: 'ความสะอาดโซนน้ำดื่ม (แก้ว เหยือก บริการตนเอง)',   icon: 'cup-soda',      hint: 'เช่น แก้วสกปรก เหยือกมีตะไคร่ น้ำหมด จุดบริการไม่เป็นระเบียบ'},
         ]
     },
     standards: {
         title: 'ความสะอาดและมาตรฐานร้าน', containerId: 'rating-container-standards',
         icon: 'star', colorClass: 'purple',
         items: [
-            { id: 'cleanScore',        name: 'ความสะอาด',     label: 'ความสะอาด (ครัว โต๊ะ อุปกรณ์)',                   icon: 'star'        },
-            { id: 'presentationScore', name: 'การจัดจาน',     label: 'การจัดจาน / Presentation (สวยงาม น่ากิน)',         icon: 'package'     },
-            { id: 'temperatureScore',  name: 'อุณหภูมิอาหาร', label: 'อุณหภูมิอาหาร (ร้อนถึงมือลูกค้า)',                 icon: 'thermometer' },
-            { id: 'portionScore',      name: 'ปริมาณอาหาร',   label: 'ปริมาณอาหาร (สม่ำเสมอตามมาตรฐาน)',                icon: 'package'     },
+            { id: 'cleanScore',        name: 'ความสะอาด',     label: 'ความสะอาด (ครัว โต๊ะ อุปกรณ์)',                    icon: 'star',        hint: 'เช่น ครัวสกปรก โต๊ะเหนียว อุปกรณ์มีคราบ พื้นไม่ถูก' },
+            { id: 'presentationScore', name: 'การจัดจาน',     label: 'การจัดจาน / Presentation (สวยงาม น่ากิน)',          icon: 'package',     hint: 'เช่น จานสกปรก จัดไม่สวย ผักวางผิดตำแหน่ง ไม่มีผักตกแต่ง'},
+            { id: 'temperatureScore',  name: 'อุณหภูมิอาหาร', label: 'อุณหภูมิอาหาร (ร้อนถึงมือลูกค้า)',                  icon: 'thermometer', hint: 'เช่น อาหารอุ่น ไม่ร้อน เสิร์ฟช้าจนเย็น ไม่ warm ก่อนเสิร์ฟ'},
+            { id: 'portionScore',      name: 'ปริมาณอาหาร',   label: 'ปริมาณอาหาร (สม่ำเสมอตามมาตรฐาน)',                 icon: 'package',     hint: 'เช่น ข้าวน้อยเกิน ไก่ชิ้นเล็ก ปริมาณไม่เท่ากันแต่ละจาน'},
         ]
     }
 };
@@ -520,7 +520,7 @@ function renderFormUI() {
                     </label>
                     <input type="text" value="${formRemarks[item.id]}"
                         onchange="formRemarks['${item.id}']=this.value"
-                        placeholder="เช่น ข้าวแฉะ, มีกลิ่น..."
+                        placeholder="${item.hint || 'ระบุสาเหตุ...'}"
                         class="w-full bg-orange-50 border border-orange-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"/>
                 </div>` : ''}
             </div>`;
